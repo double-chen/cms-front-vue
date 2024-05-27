@@ -53,6 +53,7 @@ import { loginApi } from '@/api/modules/login'
 import { useUserStore } from '@/stores/modules/user'
 import { useTabsStore } from '@/stores/modules/tabs'
 import { useKeepAliveStore } from '@/stores/modules/keepAlive'
+import { initDynamicRouter } from '@/routers/modules/dynamicRouter'
 import { CircleClose, UserFilled } from '@element-plus/icons-vue'
 import type { ElForm } from 'element-plus'
 import md5 from 'md5'
@@ -87,7 +88,7 @@ const login = (formEl: FormInstance | undefined) => {
       userStore.setToken(data.access_token)
 
       // 2.添加动态路由
-      // await initDynamicRouter()
+      await initDynamicRouter()
 
       // 3.清空 tabs、keepAlive 数据
       tabsStore.setTabs([])

@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { initDynamicRouter } from '@/routers/modules/dynamicRouter'
 import { staticRouter, errorRouter } from '@/routers/modules/staticRouter'
 import { LOGIN_URL, ROUTER_WHITE_LIST } from '@/config'
 import NProgress from '@/config/nprogress'
@@ -48,7 +49,7 @@ router.beforeEach(async (to, from, next) => {
 
   // 6.如果没有菜单列表，就重新请求菜单列表并添加动态路由
   if (!authStore.authMenuListGet.length) {
-    // await initDynamicRouter()
+    await initDynamicRouter()
     return next({ ...to, replace: true })
   }
 

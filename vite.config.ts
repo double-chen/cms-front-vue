@@ -11,12 +11,17 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const viteEnv = wrapperEnv(env)
 
   return {
+    base: viteEnv.VITE_PUBLIC_PATH,
+    root,
     plugins: createVitePlugins(viteEnv),
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
         'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
       }
+    },
+    esbuild: {
+      pure: viteEnv.VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
     },
     server: {
       host: '0.0.0.0',
