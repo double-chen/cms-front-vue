@@ -23,6 +23,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     esbuild: {
       pure: viteEnv.VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
     },
+    // css: {
+    //   preprocessorOptions: {
+    //     scss: {
+    //       additionalData: `@import "@/styles/var.scss";`
+    //     }
+    //   }
+    // },
     server: {
       host: '0.0.0.0',
       port: viteEnv.VITE_PORT,
