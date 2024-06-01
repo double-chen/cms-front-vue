@@ -1,5 +1,5 @@
 import { isArray } from '@/utils/is'
-// import { FieldNamesProps } from '@/components/ProTable/interface'
+import { FieldNamesProps } from '@/components/ProTable/interface'
 
 const mode = import.meta.env.VITE_ROUTER_MODE
 
@@ -300,25 +300,25 @@ export function handleProp(prop: string) {
  * @param {String} type 过滤类型（目前只有 tag）
  * @returns {String}
  * */
-// export function filterEnum(
-//   callValue: any,
-//   enumData?: any,
-//   fieldNames?: FieldNamesProps,
-//   type?: 'tag'
-// ) {
-//   const value = fieldNames?.value ?? 'value'
-//   const label = fieldNames?.label ?? 'label'
-//   const children = fieldNames?.children ?? 'children'
-//   let filterData: { [key: string]: any } = {}
-//   // 判断 enumData 是否为数组
-//   if (Array.isArray(enumData)) filterData = findItemNested(enumData, callValue, value, children)
-//   // 判断是否输出的结果为 tag 类型
-//   if (type == 'tag') {
-//     return filterData?.tagType ? filterData.tagType : ''
-//   } else {
-//     return filterData ? filterData[label] : '--'
-//   }
-// }
+export function filterEnum(
+  callValue: any,
+  enumData?: any,
+  fieldNames?: FieldNamesProps,
+  type?: 'tag'
+) {
+  const value = fieldNames?.value ?? 'value'
+  const label = fieldNames?.label ?? 'label'
+  const children = fieldNames?.children ?? 'children'
+  let filterData: { [key: string]: any } = {}
+  // 判断 enumData 是否为数组
+  if (Array.isArray(enumData)) filterData = findItemNested(enumData, callValue, value, children)
+  // 判断是否输出的结果为 tag 类型
+  if (type == 'tag') {
+    return filterData?.tagType ? filterData.tagType : ''
+  } else {
+    return filterData ? filterData[label] : '--'
+  }
+}
 
 /**
  * @description 递归查找 callValue 对应的 enum 值
