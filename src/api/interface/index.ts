@@ -88,3 +88,32 @@ export namespace User {
     children?: ResDepartment[]
   }
 }
+
+// 内容管理模块
+export namespace Content {
+  export interface ReqArticleParams extends ReqPage {}
+
+  export interface ReqUserParams extends ReqPage {
+    username: string
+    gender: number
+    idCard: string
+    email: string
+    address: string
+    createTime: string[]
+    status: number
+  }
+  export interface ResArticleList {
+    id: string
+    title: string // 标题
+    content: string // 内容
+    summary: string // 摘要
+    categoryId: string // 分类id
+    categoryName: string // 分类名称
+    tagIds: string[] // 标签id
+    tagNames: string[] // 标签名称
+    thumbnail: string // 缩略图
+    isPublish: boolean // 是否发布
+    createTime: string // 创建时间
+    updateTime: string // 更新时间
+  }
+}
