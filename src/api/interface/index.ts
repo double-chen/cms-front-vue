@@ -91,18 +91,12 @@ export namespace User {
 
 // 内容管理模块
 export namespace Content {
-  export interface ReqArticleParams extends ReqPage {}
-
-  export interface ReqUserParams extends ReqPage {
-    username: string
-    gender: number
-    idCard: string
-    email: string
-    address: string
-    createTime: string[]
-    status: number
+  export interface ReqArticleParams extends ReqPage {
+    title: string // 标题
+    startTime: string // 创建时间
+    endTime: string // 更新时间
   }
-  export interface ResArticleList {
+  export interface ResArticle {
     id: string
     title: string // 标题
     content: string // 内容
@@ -115,5 +109,18 @@ export namespace Content {
     isPublish: boolean // 是否发布
     createTime: string // 创建时间
     updateTime: string // 更新时间
+  }
+
+  export interface ReqCategoryParams extends ReqPage {
+    name: string // 名称
+    parentId: string // 父级Id
+    isInMenu: boolean // 是否在菜单
+  }
+  export interface ResCategory {
+    id: string
+    name: string // 名称
+    parentId: string // 父级Id
+    isInMenu: boolean // 是否在菜单
+    children: ResCategory[] // 子分类
   }
 }

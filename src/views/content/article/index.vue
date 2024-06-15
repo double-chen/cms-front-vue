@@ -35,7 +35,7 @@
   </div>
 </template>
 
-<script setup lang="tsx" name="article">
+<script setup lang="tsx" name="ArticleList">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import ProTable from '@/components/ProTable/index.vue'
@@ -50,7 +50,7 @@ const router = useRouter()
 // ProTable 实例
 const proTable = ref<ProTableInstance>()
 // 表格配置项
-const columns = reactive<ColumnProps<Content.ResArticleList>[]>([
+const columns = reactive<ColumnProps<Content.ResArticle>[]>([
   { type: 'selection', fixed: 'left', width: 70 },
   {
     prop: 'title',
@@ -114,19 +114,19 @@ const handleBatchDelete = async (ids: string[]) => {
   // proTable.value?.getTableList()
 }
 
-const handlePreview = (article: Content.ResArticleList) => {
+const handlePreview = (article: Content.ResArticle) => {
   console.log(article)
 }
 
-const handleEdit = (article: Content.ResArticleList) => {
+const handleEdit = (article: Content.ResArticle) => {
   console.log(article)
 }
 
-const handlePublish = (article: Content.ResArticleList) => {
+const handlePublish = (article: Content.ResArticle) => {
   console.log(article)
 }
 
-const handleDelete = (article: Content.ResArticleList) => {
+const handleDelete = (article: Content.ResArticle) => {
   console.log(article)
 }
 </script>
