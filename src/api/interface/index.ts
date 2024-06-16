@@ -123,4 +123,13 @@ export namespace Content {
     isInMenu: boolean // 是否在菜单
     children: ResCategory[] // 子分类
   }
+
+  export interface ReqTagParams extends ReqPage {
+    name: string // 名称
+  }
+
+  export interface ResTag {
+    id: string
+    name: string // 名称
+  }
 }

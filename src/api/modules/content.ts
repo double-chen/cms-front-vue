@@ -26,6 +26,26 @@ export const editCategory = (params: { id: string }) => {
 }
 
 // 删除文章分类
-export const deleteCategory = (params: { id: string }) => {
+export const deleteCategory = (params: { ids: string }) => {
   return http.post(PORT1 + `/category/delete`, params)
+}
+
+// 获取文章分类列表
+export const getTagList = (params: Content.ReqTagParams) => {
+  return http.post<ResPage<Content.ResTag>>(PORT1 + `/tag/list`, params)
+}
+
+// 添加文章标签
+export const addTag = (params: { id: string }) => {
+  return http.post(PORT1 + `/tag/add`, params)
+}
+
+// 修改文章标签
+export const editTag = (params: { id: string }) => {
+  return http.post(PORT1 + `/tag/edit`, params)
+}
+
+// 删除文章标签
+export const deleteTag = (params: { ids: string }) => {
+  return http.post(PORT1 + `/tag/delete`, params)
 }
