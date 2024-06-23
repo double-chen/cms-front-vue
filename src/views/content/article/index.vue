@@ -41,7 +41,7 @@ import { useRouter } from 'vue-router'
 import ProTable from '@/components/ProTable/index.vue'
 // import { ElMessage, ElMessageBox } from 'element-plus'
 import { CirclePlus, Delete, EditPen, View, Refresh } from '@element-plus/icons-vue'
-import { getArticleList } from '@/api/modules/content'
+import { getArticleList, getCategoryList } from '@/api/modules/content'
 import { ProTableInstance, ColumnProps } from '@/components/ProTable/interface'
 import { Content } from '@/api/interface'
 
@@ -58,19 +58,25 @@ const columns = reactive<ColumnProps<Content.ResArticle>[]>([
     search: { el: 'input', tooltip: '按标题模糊搜索' }
   },
   {
-    prop: 'categoryName',
-    label: '分类'
+    prop: 'categoryId',
+    label: '分类',
+    enum: fetchCategoryList,
+    fieldNames: { label: 'name', value: 'id' },
+    search: { el: 'tree-select', props: { filterable: true } },
+    render: (scope) => {
+      return scope.row.categoryName
+    }
   },
   {
     prop: 'tagNames',
     label: '标签',
     render: (scope) => {
       return (
-        <>
+        <div class="article-container-tags">
           {scope.row.tagNames.map((tag) => (
             <el-tag key={tag}>{tag}</el-tag>
           ))}
-        </>
+        </div>
       )
     }
   },
@@ -104,7 +110,7 @@ const getTableList = (params: any) => {
 }
 
 const handleAdd = () => {
-  router.push(`/proTable/useProTable/detail/${Math.random().toFixed(3)}?params=detail-page`)
+  router.push(`/content/article/create`)
 }
 
 const handleBatchDelete = async (ids: string[]) => {
@@ -129,4 +135,19 @@ const handlePublish = (article: Content.ResArticle) => {
 const handleDelete = (article: Content.ResArticle) => {
   console.log(article)
 }
+
+async function fetchCategoryList(params: any) {
+  const res = await getCategoryList(params)
+  console.log('res', res)
+  return {
+    data: res.data.list
+  }
+}
 </script>
+
+<style>
+.article-container-tags {
+  display: flex;
+  gap: 4px;
+}
+</style>
