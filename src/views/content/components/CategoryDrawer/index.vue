@@ -44,10 +44,12 @@ import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
 import { getCategoryList } from '@/api/modules/content'
 
+import { Content } from '@/api/interface'
+
 interface DrawerProps {
   title: string
   isView: boolean
-  row: Partial<User.ResUserList>
+  row: Partial<Content.ResCategory>
   api?: (params: any) => Promise<any>
   getTableList?: () => void
 }

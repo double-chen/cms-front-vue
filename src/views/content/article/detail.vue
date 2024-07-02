@@ -55,7 +55,7 @@ import type { UploadProps } from 'element-plus'
 const route = useRoute()
 
 console.log('route', route.params.id)
-const formData = reactive({
+const formData: any = reactive({
   id: '',
   title: '',
   content: '',
@@ -64,7 +64,7 @@ const formData = reactive({
   tagIds: [],
   thumbnail: ''
 })
-const categories = ref([])
+const categories: any = ref([])
 const dialogVisible = ref(false)
 const defaultProps = {
   children: 'children',
@@ -77,11 +77,11 @@ const beforeThumbnailUpload: UploadProps['beforeUpload'] = (file) => {
   const isLt2M = file.size / 1024 / 1024 < 2
 
   if (!isImage) {
-    this.$message.error('只能上传图片文件')
+    ElMessage.error('只能上传图片文件')
     return false
   }
   if (!isLt2M) {
-    this.$message.error('图片文件大小不能超过 2MB')
+    ElMessage.error('图片文件大小不能超过 2MB')
     return false
   }
   return true
@@ -92,11 +92,11 @@ const headers = {
 }
 
 const uploadThumbnail = async (option: any) => {
-  const formData = new FormData()
-  formData.append('file', option.file)
+  const uploadFormData = new FormData()
+  uploadFormData.append('file', option.file)
 
   try {
-    const res = await uploadImg(formData, {
+    const res = await uploadImg(uploadFormData, {
       headers: headers,
       withCredentials: true // 如果需要携带凭证，如 cookies
     })
@@ -106,6 +106,21 @@ const uploadThumbnail = async (option: any) => {
     console.error(error)
   }
 }
+
+// ResArticle {
+//     id: string
+//     title: string // 标题
+//     content: string // 内容
+//     summary: string // 摘要
+//     categoryId: string // 分类id
+//     categoryName: string // 分类名称
+//     tagIds: string[] // 标签id
+//     tagNames: string[] // 标签名称
+//     thumbnail: string // 缩略图
+//     isPublish: boolean // 是否发布
+//     createTime: string // 创建时间
+//     updateTime: string // 更新时间
+//   }
 
 const onSubmit = async () => {
   // ElMessage.success('提交的数据为 : ' + JSON.stringify(formData))
@@ -117,7 +132,8 @@ const onSubmit = async () => {
     summary: formData.summary,
     categoryId: formData.categoryId,
     tagIds: formData.tagIds,
-    thumbnail: formData.thumbnail
+    thumbnail: formData.thumbnail,
+    isPublish: formData.isPublish
   }
   const res = await saveArticle(params)
   if (res.data) {
@@ -130,7 +146,7 @@ const onPreview = () => {
 }
 
 onMounted(async () => {
-  const resCategory = await getCategoryList()
+  const resCategory = await getCategoryList({})
   categories.value = resCategory.data.list
 
   if (route.params.id) {

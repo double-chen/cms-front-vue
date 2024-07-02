@@ -29,10 +29,12 @@
 import { ref, reactive } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
 
+import { Content } from '@/api/interface'
+
 interface DrawerProps {
   title: string
   isView: boolean
-  row: Partial<User.ResUserList>
+  row: Partial<Content.ResCategory>
   api?: (params: any) => Promise<any>
   getTableList?: () => void
 }

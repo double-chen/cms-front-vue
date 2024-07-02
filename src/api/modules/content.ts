@@ -10,16 +10,16 @@ export const getArticleList = (params: Content.ReqArticleParams) => {
   return http.post<ResPage<Content.ResArticle>>(PORT1 + `/article/list`, params)
 }
 
-export const getArticleById = (params: { id: string }) => {
+export const getArticleById = (params: any) => {
   return http.get<Content.ResArticle>(PORT1 + `/article/get`, params)
 }
 
-export const saveArticle = (params: Content.ResArticle) => {
+export const saveArticle = (params: any) => {
   return http.post(PORT1 + `/article/save`, params)
 }
 
 // 获取文章分类列表
-export const getCategoryList = (params: Content.ReqCategoryParams) => {
+export const getCategoryList = (params: any) => {
   return http.post<ResPage<Content.ResCategory>>(PORT1 + `/category/list`, params)
 }
 
