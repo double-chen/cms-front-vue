@@ -38,6 +38,7 @@
 <script setup lang="tsx" name="ArticleList">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import dayjs from 'dayjs'
 import ProTable from '@/components/ProTable/index.vue'
 // import { ElMessage, ElMessageBox } from 'element-plus'
 import { CirclePlus, Delete, EditPen, View, Refresh } from '@element-plus/icons-vue'
@@ -93,7 +94,10 @@ const columns = reactive<ColumnProps<Content.ResArticle>[]>([
       el: 'date-picker',
       span: 2,
       props: { type: 'datetimerange', valueFormat: 'YYYY-MM-DD HH:mm:ss' },
-      defaultValue: ['2022-11-12 11:35:00', '2022-12-12 11:35:00']
+      defaultValue: [
+        dayjs().subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+        dayjs().endOf('day').format('YYYY-MM-DD HH:mm:ss')
+      ]
     }
   },
   { prop: 'operation', label: '操作', fixed: 'right', width: 330 }
