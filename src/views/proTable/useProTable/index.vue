@@ -75,6 +75,7 @@ import { useHandleData } from '@/hooks/useHandleData'
 import { useDownload } from '@/hooks/useDownload'
 import { useAuthButtons } from '@/hooks/useAuthButtons'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import dayjs from 'dayjs'
 import ProTable from '@/components/ProTable/index.vue'
 import ImportExcel from '@/components/ImportExcel/index.vue'
 import UserDrawer from '@/views/proTable/components/UserDrawer.vue'
@@ -212,15 +213,13 @@ const columns = reactive<ColumnProps<User.ResUserList>[]>([
           {BUTTONS.value.status ? (
             <el-switch
               model-value={scope.row.status}
-              active-text={scope.row.status ? '启用' : '禁用'}
-              active-value={1}
-              inactive-value={0}
+              active-text={scope.row.status}
+              active-value={'启用'}
+              inactive-value={'禁用'}
               onClick={() => changeStatus(scope.row)}
             />
           ) : (
-            <el-tag type={scope.row.status ? 'success' : 'danger'}>
-              {scope.row.status ? '启用' : '禁用'}
-            </el-tag>
+            <el-tag type={scope.row.status ? 'success' : 'danger'}>{scope.row.status}</el-tag>
           )}
         </>
       )
@@ -235,7 +234,10 @@ const columns = reactive<ColumnProps<User.ResUserList>[]>([
       el: 'date-picker',
       span: 2,
       props: { type: 'datetimerange', valueFormat: 'YYYY-MM-DD HH:mm:ss' },
-      defaultValue: ['2022-11-12 11:35:00', '2022-12-12 11:35:00']
+      defaultValue: [
+        dayjs().subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+        dayjs().endOf('day').format('YYYY-MM-DD HH:mm:ss')
+      ]
     }
   },
   { prop: 'operation', label: '操作', fixed: 'right', width: 330 }
