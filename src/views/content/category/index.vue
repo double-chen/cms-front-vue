@@ -1,9 +1,9 @@
 <template>
   <div class="article-container">
-    <ProTable ref="proTable" :columns="columns" :request-api="getTableList">
+    <ProTable ref="proTable" :columns="columns" :request-api="getTableList" :pagination="false">
       <!-- 表格 header 按钮 -->
       <template #tableHeader="scope">
-        <el-button v-auth="'add'" type="primary" :icon="CirclePlus" @click="openDrawer('新增')">
+        <el-button type="primary" :icon="CirclePlus" @click="openDrawer('新增')">
           新增分类
         </el-button>
         <el-button
@@ -49,8 +49,7 @@ const columns = reactive<ColumnProps<Content.ResCategory>[]>([
   { type: 'selection', fixed: 'left', width: 70 },
   {
     prop: 'name',
-    label: '名称',
-    search: { el: 'input', tooltip: '按名称模糊搜索' }
+    label: '名称'
   },
   {
     prop: 'isInMenu',

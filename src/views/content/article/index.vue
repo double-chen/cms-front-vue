@@ -32,6 +32,9 @@
         </el-button>
       </template>
     </ProTable>
+    <el-dialog v-model="dialogVisible" title="富文本内容预览" width="1300px" top="50px">
+      <div class="view" v-html="content"></div>
+    </el-dialog>
   </div>
 </template>
 
@@ -103,6 +106,9 @@ const columns = reactive<ColumnProps<Content.ResArticle>[]>([
   { prop: 'operation', label: '操作', fixed: 'right', width: 330 }
 ])
 
+const dialogVisible = ref(false)
+const content = ref('')
+
 // 如果你想在请求之前对当前请求参数做一些操作，可以自定义如下函数：params 为当前所有的请求参数（包括分页），最后返回请求列表接口
 // 默认不做操作就直接在 ProTable 组件上绑定	:requestApi="getUserList"
 const getTableList = (params: any) => {
@@ -125,7 +131,8 @@ const handleBatchDelete = async (ids: string[]) => {
 }
 
 const handlePreview = (article: Content.ResArticle) => {
-  console.log(article)
+  dialogVisible.value = true
+  content.value = article.content
 }
 
 const handleEdit = (article: Content.ResArticle) => {

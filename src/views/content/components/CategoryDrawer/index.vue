@@ -89,9 +89,9 @@ const load = async (node, resolve) => {
     return
   }
 
-  const res = await getCategoryList({ parentId: '123' })
+  const res = await getCategoryList({ parentId: node.data.id })
 
-  resolve(res.data.list)
+  resolve(res.data)
 }
 
 // 提交数据（新增/编辑）
