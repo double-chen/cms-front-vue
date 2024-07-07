@@ -31,7 +31,7 @@ export const editUser = (params: { id: string }) => {
 }
 
 // 删除用户
-export const deleteUser = (params: { id: string[] }) => {
+export const deleteUser = (params: { ids: string[] }) => {
   return http.post(PORT1 + `/user/delete`, params)
 }
 

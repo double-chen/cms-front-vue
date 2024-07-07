@@ -7,10 +7,10 @@ import http from '@/api'
  */
 // 图片上传
 export const uploadImg = (params: FormData, options?: any) => {
-  return http.post<Upload.ResFileUrl>(PORT1 + `/file/upload/img`, options)
+  return http.post<Upload.ResFileUrl>(PORT1 + `/file/uploadFile`, params, options)
 }
 
 // 视频上传
 export const uploadVideo = (params: FormData, options?: any) => {
-  return http.post<Upload.ResFileUrl>(PORT1 + `/file/upload/video`, params, options)
+  return http.post<Upload.ResFileUrl>(PORT1 + `/file/uploadFile`, params, options)
 }

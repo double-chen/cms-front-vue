@@ -182,7 +182,7 @@ const columns = reactive<ColumnProps<User.ResUserList>[]>([
   },
   {
     // 多级 prop
-    prop: 'user.detail.age',
+    prop: 'age',
     label: '年龄',
     search: {
       // 自定义 search 显示内容
@@ -250,13 +250,14 @@ const sortTable = ({ newIndex, oldIndex }: { newIndex?: number; oldIndex?: numbe
 
 // 删除用户信息
 const deleteAccount = async (params: User.ResUserList) => {
-  await useHandleData(deleteUser, { id: [params.id] }, `删除【${params.username}】用户`)
+  console.log('deleteAccount:params', params)
+  await useHandleData(deleteUser, { ids: [params.id] }, `删除【${params.username}】用户`)
   proTable.value?.getTableList()
 }
 
 // 批量删除用户信息
-const batchDelete = async (id: string[]) => {
-  await useHandleData(deleteUser, { id }, '删除所选用户信息')
+const batchDelete = async (ids: string[]) => {
+  await useHandleData(deleteUser, { ids }, '删除所选用户信息')
   proTable.value?.clearSelection()
   proTable.value?.getTableList()
 }
