@@ -24,9 +24,6 @@
         <el-button type="primary" link :icon="EditPen" @click="handleEdit(scope.row)">
           编辑
         </el-button>
-        <el-button type="primary" link :icon="Refresh" @click="handlePublish(scope.row)">
-          发布
-        </el-button>
         <el-button type="primary" link :icon="Delete" @click="handleDelete(scope.row)">
           删除
         </el-button>
@@ -44,8 +41,9 @@ import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import ProTable from '@/components/ProTable/index.vue'
 // import { ElMessage, ElMessageBox } from 'element-plus'
-import { CirclePlus, Delete, EditPen, View, Refresh } from '@element-plus/icons-vue'
-import { getArticleList, getCategoryList } from '@/api/modules/content'
+import { useHandleData } from '@/hooks/useHandleData'
+import { CirclePlus, Delete, EditPen, View } from '@element-plus/icons-vue'
+import { getArticleList, getCategoryList, deleteArticle } from '@/api/modules/content'
 import { ProTableInstance, ColumnProps } from '@/components/ProTable/interface'
 import { Content } from '@/api/interface'
 
@@ -85,6 +83,14 @@ const columns = reactive<ColumnProps<Content.ResArticle>[]>([
     }
   },
   {
+    prop: 'isPublish',
+    label: '是否发布',
+    width: 100,
+    render: (scope) => {
+      return <div>{scope.row.isPublish === 1 ? '是' : '否'}</div>
+    }
+  },
+  {
     prop: 'createTime',
     label: '创建时间',
     width: 180
@@ -103,7 +109,7 @@ const columns = reactive<ColumnProps<Content.ResArticle>[]>([
       ]
     }
   },
-  { prop: 'operation', label: '操作', fixed: 'right', width: 330 }
+  { prop: 'operation', label: '操作', fixed: 'right', width: 240 }
 ])
 
 const dialogVisible = ref(false)
@@ -125,9 +131,9 @@ const handleAdd = () => {
 
 const handleBatchDelete = async (ids: string[]) => {
   console.log('ids', ids)
-  // await useHandleData(deleteUser, { ids }, '删除所选用户信息')
-  // proTable.value?.clearSelection()
-  // proTable.value?.getTableList()
+  await useHandleData(deleteArticle, { ids }, '删除所选文章')
+  proTable.value?.clearSelection()
+  proTable.value?.getTableList()
 }
 
 const handlePreview = (article: Content.ResArticle) => {
@@ -136,22 +142,20 @@ const handlePreview = (article: Content.ResArticle) => {
 }
 
 const handleEdit = (article: Content.ResArticle) => {
-  console.log(article)
+  router.push(`/content/article/edit/${article.id}`)
 }
 
-const handlePublish = (article: Content.ResArticle) => {
+const handleDelete = async (article: Content.ResArticle) => {
   console.log(article)
-}
-
-const handleDelete = (article: Content.ResArticle) => {
-  console.log(article)
+  await useHandleData(deleteArticle, { ids: [article.id] }, `删除【${article.title}】文章`)
+  proTable.value?.getTableList()
 }
 
 async function fetchCategoryList(params: any) {
   const res = await getCategoryList(params)
   console.log('res', res)
   return {
-    data: res.data.list
+    data: res.data
   }
 }
 </script>

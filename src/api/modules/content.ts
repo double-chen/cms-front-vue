@@ -11,11 +11,19 @@ export const getArticleList = (params: Content.ReqArticleParams) => {
 }
 
 export const getArticleById = (params: any) => {
-  return http.get<Content.ResArticle>(PORT1 + `/article/get`, params)
+  return http.get<Content.ResArticle>(PORT1 + `/article/detail`, params)
 }
 
-export const saveArticle = (params: any) => {
-  return http.post(PORT1 + `/article/save`, params)
+export const addArticle = (params: any) => {
+  return http.post(PORT1 + `/article/add`, params)
+}
+
+export const editArticle = (params: any) => {
+  return http.post(PORT1 + `/article/edit`, params)
+}
+
+export const deleteArticle = (params: { ids: string[] }) => {
+  return http.post(PORT1 + `/article/delete`, params)
 }
 
 // 获取文章分类列表

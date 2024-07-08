@@ -106,7 +106,7 @@ export namespace Content {
     tagIds: string[] // 标签id
     tagNames: string[] // 标签名称
     thumbnail: string // 缩略图
-    isPublish: boolean // 是否发布
+    isPublish: number // 是否发布
     createTime: string // 创建时间
     updateTime: string // 更新时间
   }
@@ -124,8 +124,8 @@ export namespace Content {
     children: ResCategory[] // 子分类
   }
 
-  export interface ReqTagParams extends ReqPage {
-    name: string // 名称
+  export interface ReqTagParams {
+    name?: string // 名称
   }
 
   export interface ResTag {

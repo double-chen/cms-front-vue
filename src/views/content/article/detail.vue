@@ -19,6 +19,12 @@
           :props="defaultProps"
         />
       </el-form-item>
+      <el-form-item label="标签 :">
+        <el-select v-model="formData.tagIds" multiple placeholder="请选择标签">
+          <el-option v-for="tag in tags" :key="tag.id" :label="tag.name" :value="tag.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="缩略图 :">
         <el-upload
           class="thumbnail-uploader"
@@ -32,8 +38,8 @@
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit"> 保存 </el-button>
-        <el-button>保存并发布</el-button>
+        <el-button type="primary" @click="onSubmit(false)"> 保存 </el-button>
+        <el-button @click="onSubmit(true)">保存并发布</el-button>
         <el-button @click="onPreview"> 内容预览 </el-button>
       </el-form-item>
     </el-form>
@@ -48,7 +54,13 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import WangEditor from '@/components/WangEditor/index.vue'
-import { getCategoryList, getArticleById, saveArticle } from '@/api/modules/content'
+import {
+  getCategoryList,
+  getTagList,
+  getArticleById,
+  addArticle,
+  editArticle
+} from '@/api/modules/content'
 import { uploadImg } from '@/api/modules/upload'
 import type { UploadProps } from 'element-plus'
 
@@ -65,6 +77,7 @@ const formData: any = reactive({
   thumbnail: ''
 })
 const categories: any = ref([])
+const tags: any = ref([])
 const dialogVisible = ref(false)
 const defaultProps = {
   children: 'children',
@@ -101,7 +114,7 @@ const uploadThumbnail = async (option: any) => {
       withCredentials: true // 如果需要携带凭证，如 cookies
     })
 
-    formData.thumbnail = res.data
+    formData.thumbnail = res.data.fileUrl
   } catch (error) {
     console.error(error)
   }
@@ -122,22 +135,30 @@ const uploadThumbnail = async (option: any) => {
 //     updateTime: string // 更新时间
 //   }
 
-const onSubmit = async () => {
+const onSubmit = async (isPublish) => {
   // ElMessage.success('提交的数据为 : ' + JSON.stringify(formData))
 
-  const params = {
-    id: formData.id,
+  console.log('onSubmit:isPublish', isPublish)
+  const params: any = {
     title: formData.title,
     content: formData.content,
     summary: formData.summary,
     categoryId: formData.categoryId,
     tagIds: formData.tagIds,
     thumbnail: formData.thumbnail,
-    isPublish: formData.isPublish
+    isPublish
   }
-  const res = await saveArticle(params)
-  if (res.data) {
-    ElMessage.success('保存成功')
+  if (formData.id) {
+    params.id = formData.id
+    const res = await editArticle(params)
+    if (res.data) {
+      ElMessage.success('保存成功')
+    }
+  } else {
+    const res = await addArticle(params)
+    if (res.data) {
+      ElMessage.success('保存成功')
+    }
   }
 }
 
@@ -147,7 +168,10 @@ const onPreview = () => {
 
 onMounted(async () => {
   const resCategory = await getCategoryList({})
-  categories.value = resCategory.data.list
+  categories.value = resCategory.data
+
+  const resTags = await getTagList({})
+  tags.value = resTags.data
 
   if (route.params.id) {
     const params = {
