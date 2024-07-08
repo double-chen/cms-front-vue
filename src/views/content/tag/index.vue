@@ -1,9 +1,9 @@
 <template>
   <div class="tag-container">
-    <ProTable ref="proTable" :columns="columns" :request-api="getTableList">
+    <ProTable ref="proTable" :columns="columns" :request-api="getTableList" :pagination="false">
       <!-- 表格 header 按钮 -->
       <template #tableHeader="scope">
-        <el-button v-auth="'add'" type="primary" :icon="CirclePlus" @click="openDrawer('新增')">
+        <el-button type="primary" :icon="CirclePlus" @click="openDrawer('新增')">
           新增标签
         </el-button>
         <el-button
