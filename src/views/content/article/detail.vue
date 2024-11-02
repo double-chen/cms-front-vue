@@ -168,7 +168,7 @@ const onPreview = () => {
 
 onMounted(async () => {
   const resCategory = await getCategoryList({})
-  categories.value = resCategory.data
+  categories.value = resCategory.data.list
 
   const resTags = await getTagList({})
   tags.value = resTags.data

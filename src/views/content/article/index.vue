@@ -155,7 +155,7 @@ async function fetchCategoryList(params: any) {
   const res = await getCategoryList(params)
   console.log('res', res)
   return {
-    data: res.data
+    data: res.data.list
   }
 }
 </script>
