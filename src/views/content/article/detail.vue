@@ -171,7 +171,7 @@ onMounted(async () => {
   categories.value = resCategory.data.list
 
   const resTags = await getTagList({})
-  tags.value = resTags.data
+  tags.value = resTags.data.list
 
   if (route.params.id) {
     const params = {
