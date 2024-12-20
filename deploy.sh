@@ -3,7 +3,7 @@
 # 配置部分
 LOCAL_FRONTEND_PATH="/Users/chenchen501/study/cms-front-vue/dist"  # 本地前端应用程序路径
 REMOTE_USER="root"         # 远程服务器用户名
-REMOTE_HOST="116.198.251.215"        # 远程服务器地址
+REMOTE_HOST="116.198.34.49"        # 远程服务器地址
 REMOTE_FRONTEND_PATH="/var/www/cms/frontend/dist"          # 远程服务器路径
 ARCHIVE_NAME="cms_frontend.tar.gz"        # 压缩文件名 
 

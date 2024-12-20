@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # 构建项目
-RUN npm run build
+RUN npm run build-only
 
 # 使用 Nginx 作为生产阶段的基础镜像
 FROM nginx:alpine
