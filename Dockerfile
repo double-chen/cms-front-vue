@@ -7,14 +7,17 @@ WORKDIR /app
 # 复制 package.json 和 package-lock.json（如果有）
 COPY package*.json ./
 
+# 设置 npm 镜像源
+RUN npm config set registry https://registry.npmmirror.com
+
 # 安装项目依赖
-RUN npm install
+RUN npm install --production
 
 # 复制项目文件到容器中
 COPY . .
 
 # 构建项目
-RUN npm run build
+# RUN npm run build
 
 # 使用 Nginx 作为生产阶段的基础镜像
 FROM nginx:alpine
