@@ -1,6 +1,6 @@
 <template>
   <div class="article-container">
-    <ProTable ref="proTable" :columns="columns" :request-api="getTableList">
+    <ProTable ref="proTable" :pagination="false" :columns="columns" :request-api="getTableList">
       <!-- 表格 header 按钮 -->
       <template #tableHeader="scope">
         <el-button type="primary" :icon="CirclePlus" @click="openDrawer('新增')">

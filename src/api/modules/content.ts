@@ -48,7 +48,7 @@ export const deleteCategory = (params: { ids: string }) => {
 
 // 获取文章标签列表
 export const getTagList = (params: Content.ReqTagParams) => {
-  return http.post<ResPage<Content.ResTag>>(PORT1 + `/tag/list`, params)
+  return http.post<Content.ResTag[]>(PORT1 + `/tag/list`, params)
 }
 
 // 添加文章标签

@@ -38,7 +38,7 @@
 <script setup lang="tsx" name="ArticleList">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 import ProTable from '@/components/ProTable/index.vue'
 // import { ElMessage, ElMessageBox } from 'element-plus'
 import { useHandleData } from '@/hooks/useHandleData'
@@ -104,8 +104,8 @@ const columns = reactive<ColumnProps<Content.ResArticle>[]>([
       span: 2,
       props: { type: 'datetimerange', valueFormat: 'YYYY-MM-DD HH:mm:ss' },
       defaultValue: [
-        dayjs().subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
-        dayjs().endOf('day').format('YYYY-MM-DD HH:mm:ss')
+        // dayjs().subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+        // dayjs().endOf('day').format('YYYY-MM-DD HH:mm:ss')
       ]
     }
   },
@@ -155,7 +155,7 @@ async function fetchCategoryList(params: any) {
   const res = await getCategoryList(params)
   console.log('res', res)
   return {
-    data: res.data.list
+    data: res.data
   }
 }
 </script>
